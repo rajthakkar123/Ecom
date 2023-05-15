@@ -49,9 +49,9 @@ class AddAddress(LoginRequiredMixin,CreateView):
     form_class = AddressForm
     template_name = 'user/add-address.html'
     success_url= '/'
-    @login_required
-    def dispatch(self, request, *args, **kwargs):
-        return super().dispatch(request, *args, **kwargs)
+    # @login_required
+    # def dispatch(self, request, *args, **kwargs):
+    #     return super().dispatch(request, *args, **kwargs)
     def post(self,request):
         form = AddressForm(request.POST)
         if form.is_valid():
