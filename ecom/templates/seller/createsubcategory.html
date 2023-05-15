@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SubCategory</title>
+</head>
+<body>
+    <h1>Create SubCategory</h1>
+
+
+
+
+    <form method="post"  >
+        {% csrf_token %}
+        <label for="SubCategoryName">Subcategory name:</label><br>
+        {{form.name}}<br>
+
+
+        <label for="Category">Category: </label><br>
+        <select required id="id_category" name="category" >
+            
+            {% for category in categorylist  %}
+            <option value="{{category.id}}">{{category.name}}</option>
+            {% endfor %}
+            
+                
+        </select><br><br> 
+        <input type="submit" value="Submit">
+        </form>
+</body>
+</html>

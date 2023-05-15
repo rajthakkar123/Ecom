@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product</title>
+</head>
+<body>
+    <h1>Create Product</h1>
+
+
+
+
+    <form method="post" id="producform" enctype="multipart/form-data" data-subcategory-url="{% url 'ajax_load_subcategory' %}">
+        {% csrf_token %}
+        <label for="ProductName">Product name:</label> 
+        {{form.name}}<br><br>
+
+
+        <label for="Category">Category: </label> 
+        <select required id="id_category" name="category" onchange="loadSubcategory()">
+            <option selected value="">----</option>
+            {% for category in categorylist  %}
+            <option value="{{category.id}}">{{category.name}}</option>
+            {% endfor %}
+            
+            
+        </select><br><br> 
+
+        
+        
+        
+        <label for="id_subcategory" >Subcategory :</label>
+
+        <select required id="id_subcategory" name="subcategory" >
+            <option selected value="">---</option>
+            {% for subcategory in subcategorylist  %}
+            <option value="{{subcategory.id}}">{{subcategory.name}}</option>
+            {% endfor %}
+        </select><br><br>
+            <label for="id_image">Choose Image: </label>
+            {{form.image}}<br><br>
+        
+            <input type="submit" value="Submit"><br>
+           
+
+            
+        
+    </form>
+<script>
+    function loadSubcategory(){
+        var categoryId = document.getElementById("id_category");
+        var subcategoryID = document.getElementById("id_subcategory");
+        subcategoryID.innerHTML = "";
+        var ajax = new XMLHttpRequest();
+        ajax.onreadystatechange = function(){
+            if (ajax.readyState === 4 ){
+                var jsn = JSON.parse(ajax.responseText);
+                for (var i = 0; i<jsn.length;i++){
+                    var opt = document.createElement("option");
+                    opt.value = jsn[i].id;
+                    opt.text = jsn[i].name;
+                    subcategoryID.options.add(opt);
+                }
+            }
+        };
+        ajax.open("get","/admin/load-product-subcategory?categoryID="+categoryId.value,true);
+        ajax.send()
+    }
+</script>
+</body>
+</html>
