@@ -1,21 +1,15 @@
 from django.urls import path
-from product.views.user_views import OrderCreation,UserProfile,ViewAddress,UpdateAddress, add_in_cart,remove_from_cart,add_to_cart,ajax_load_product ,LoadRegistration,LoadHome,LoadCategory,LoadProduct,LoadCart,LoadCheckout,LoadContact,LoadBlog,LoadConfirmation,LoadSingleBlog,LoadTracking,LoadLogin,LoadElements,AddAddress
+from product.views.user_views import OrderCreation,UserProfile,ViewAddress,UpdateAddress, add_in_cart,remove_from_cart,add_to_cart,ajax_load_product ,LoadRegistration,LoadHome,LoadCategory,LoadCart,LoadCheckout,LoadConfirmation,LoadLogin,AddAddress
 from django.contrib.auth.views import LogoutView,LoginView
 
 
 urlpatterns = [
     path("",LoadHome.as_view(),name="home"),
     path("category/",LoadCategory.as_view(),name="category"),
-    path("product/",LoadProduct.as_view(),name="product"),
     path("cart/",LoadCart.as_view(),name="cart"),
     path("checkout/",LoadCheckout.as_view(),name="checkout"),
-    path("contact/",LoadContact.as_view(),name="contact"),
-    path("blog/",LoadBlog.as_view(),name="blog"),
     path("confirmation/",LoadConfirmation.as_view(),name="confirmation"),
-    path("singleblog/",LoadSingleBlog.as_view(),name="singleblog"),
-    path("tracking/",LoadTracking.as_view(),name="tracking"),
     path("login/",LoadLogin.as_view(),name="login"),
-    path("element/",LoadElements.as_view(),name="elements"),
     path("registration/",LoadRegistration.as_view(),name="registration"),
     path("logout/",LogoutView.as_view(),name="logout"),
     path('add-address/',AddAddress.as_view(),name="add-address"),

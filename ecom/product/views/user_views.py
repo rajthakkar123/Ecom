@@ -49,9 +49,7 @@ class AddAddress(LoginRequiredMixin,CreateView):
     form_class = AddressForm
     template_name = 'user/add-address.html'
     success_url= '/'
-    # @login_required
-    # def dispatch(self, request, *args, **kwargs):
-    #     return super().dispatch(request, *args, **kwargs)
+    
     def post(self,request):
         form = AddressForm(request.POST)
         if form.is_valid():
@@ -83,10 +81,6 @@ class LoadCategory(TemplateView):
         context['category_vo_list'] = Category.objects.all()
         return context
 
-
-
-class LoadProduct(TemplateView):
-    template_name = 'user/single-product.html'
 
 
 class LoadCart(LoginRequiredMixin,TemplateView):
@@ -135,13 +129,6 @@ class LoadCheckout(LoginRequiredMixin,TemplateView):
 
         return context
 
-class LoadContact(TemplateView):
-    template_name = 'user/contact.html'
-
-
-class LoadBlog(TemplateView):
-    template_name = 'user/blog.html'
-
 class LoadConfirmation(LoginRequiredMixin,TemplateView):
     template_name = 'user/confirmation.html'
     def get_context_data(self, **kwargs) :
@@ -158,14 +145,6 @@ class LoadConfirmation(LoginRequiredMixin,TemplateView):
         context["order_items"] = latest_order_items
 
         return context
-
-class LoadSingleBlog(TemplateView):
-    template_name = 'user/single-blog.html'
-
-
-class LoadTracking(TemplateView):
-    template_name = 'user/tracking.html'
-
 
 class LoadLogin(LoginView):
     template_name = 'user/login.html'
