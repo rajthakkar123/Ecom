@@ -37,7 +37,7 @@
 <body>
   <div class="container">
     <h1>Seller Dashboard</h1>
-
+    <button><a style="color: white;text-decoration: none;" href="logout">LOGOUT</a></button>
     
     <h2>Categories</h2>
     <table>
@@ -54,7 +54,7 @@
                 
             
             <td>{{category}}</td>
-            <td><a href="{% url 'updatecategory' pk=category.id %}" >EDIT</a> <a href="#" >DELETE</a></td>
+            <td><a href="{% url 'updatecategory' pk=category.id %}" >EDIT</a> <a href="{% url 'deletecategory' pk=category.id %}" >DELETE</a></td>
         </tbody>
         {% endfor %}
     </table>
@@ -75,7 +75,7 @@
       
       <tbody id="subcategoryList">
           <td>{{subcategory}}</td>
-          <td><a href="{% url 'updatesubcategory' pk=subcategory.id %}" >EDIT</a> <a href="#" >DELETE</a></td>
+          <td><a href="{% url 'updatesubcategory' pk=subcategory.id %}" >EDIT</a> <a href="{% url 'deletesubcategory' pk=subcategory.id %}" >DELETE</a></td>
           <!-- Subcategory list will be dynamically populated here -->
         </tbody>
         {% endfor %}
@@ -99,7 +99,7 @@
           <!-- Product list will be dynamically populated here -->
           <td>{{product}}</td>
           <td>{{product.price}}</td>
-          <td><a href="{% url 'updateproduct' pk=product.id %}" >EDIT</a> <a href="#" >DELETE</a></td>
+          <td><a href="{% url 'updateproduct' pk=product.id %}" >EDIT</a> <a href="{% url 'deleteproduct' pk=product.id %}" >DELETE</a></td>
         </tbody>
         {% endfor %}
     </table>

@@ -1,7 +1,7 @@
 from typing import Any, Dict
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import TemplateView
-from django.views.generic.edit import CreateView,UpdateView
+from django.views.generic.edit import CreateView,UpdateView,DeleteView
 from product.models import Category,Subcategory,Product
 from product.forms import CategoryForm,SubCategoryForm,ProductForm
 from django.forms import model_to_dict
@@ -85,3 +85,18 @@ class UpdateProduct(UpdateView):
     template_name = "seller/update-product.html"
     form_class = ProductForm
     success_url = "/admin/"
+    
+class DeleteCategory(DeleteView):
+    model = Category
+    success_url = "/admin"
+    template_name = "seller/confirm_delete.html"
+
+class DeleteSubcategory(DeleteView):
+    model = Subcategory
+    success_url = "/admin"
+    template_name = "seller/confirm_delete.html"
+
+class DeleteProduct(DeleteView):
+    model = Product
+    success_url = "/admin"
+    template_name = "seller/confirm_delete.html"
