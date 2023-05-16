@@ -213,6 +213,11 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		cartData.push(item);
 		// console.log(item)
 	}
+	if (cartData.length === 0) {
+ 		console.log("The list is empty.");
+		window.location.href = "/"
+	}
+	else {
 	cart = JSON.stringify(cartData)
 	console.log("CART"+cart)
 	a="'" +cart+"'"
@@ -238,6 +243,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
       }
     });
   }
+}
 </script>
 
   </script>

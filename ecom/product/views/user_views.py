@@ -78,9 +78,10 @@ class LoadCategory(TemplateView):
     template_name = 'user/category.html'
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+        context = super(LoadCategory,self).get_context_data(**kwargs)
         
         context['category_vo_list'] = Category.objects.all()
+        print("Contxt ::",context)
         return context
 
 
@@ -145,7 +146,7 @@ class LoadBlog(TemplateView):
 class LoadConfirmation(LoginRequiredMixin,TemplateView):
     template_name = 'user/confirmation.html'
     def get_context_data(self, **kwargs) :
-        context = super().get_context_data(**kwargs)
+        context = super(LoadConfirmation,self).get_context_data(**kwargs)
         user = self.request.user
 
         latest_order = Order.objects.filter(user=user).order_by('-id').first()
@@ -189,19 +190,20 @@ class LoadRegistration(CreateView):
     def get_success_url(self):
         return reverse('login')
     
-    def form_valid(self, form):
-        response = super().form_valid(form)
+    # def form_valid(self, form):
+    #     response = super().form_valid(form)
         
-        cart = Cart(user=self.object)
-        cart.save()
+    #     cart = Cart(user=self.object)
+    #     cart.save()
         
-        return response
+    #     return response
 
 @login_required
 def add_to_cart(request, product_id):
 
     product = get_object_or_404(Product, pk=product_id)
     cart, created = Cart.objects.get_or_create(user=request.user)
+    print("BOOL",created)
     product_filtered = Product.objects.get(id = product.id)
     cart_item, created = CartItems.objects.get_or_create(cart=cart, item_name=product_filtered)
     
@@ -249,20 +251,16 @@ def OrderCreation(request,**kwargs):
         item_name = item['item_name']
         quantity = item['quantity']
         amount = item['amount']
-        
+        print("AMOUNT",amount)
         if float(amount)>0.00 :
             order = Order.objects.create(user = user)
             price = float(amount) / int(quantity)
             order.total += float(amount)
             OrderItems.objects.create(product = item_name,quantity = quantity,price = price,main_order=order)
-        
-        order.save()
-        
-        CartItems.objects.filter(cart=cartt).delete()
-        response_data = {'message': 'Order created successfully'}
-    
-    return JsonResponse(response_data)
-
+            order.save()
+            CartItems.objects.filter(cart=cartt).delete()
+            response_data = {'message': 'Order created successfully'}
+            return JsonResponse(response_data)
 
 class UserProfile( SuccessMessageMixin, UpdateView):
     model = CustomUser
