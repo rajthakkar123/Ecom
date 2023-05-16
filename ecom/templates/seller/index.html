@@ -1,12 +1,109 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Home</title>
+  <title>Seller Dashboard</title>
+  <style>
+    /* CSS styles */
+    body {
+      font-family: Arial, sans-serif;
+    }
+    h1 {
+      color: #333;
+    }
+    .container {
+      margin: 20px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    table th, table td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+    button {
+      padding: 5px 10px;
+      border: none;
+      background-color: #333;
+      color: #fff;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #555;
+    }
+  </style>
 </head>
 <body>
+  <div class="container">
+    <h1>Seller Dashboard</h1>
+
     
-</body>
-</html>
+    <h2>Categories</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        {% for category in categories %}
+        <tbody id="categoryList">
+            <!-- Category list will be dynamically populated here -->
+            
+                
+            
+            <td>{{category}}</td>
+            <td><a href="{% url 'updatecategory' pk=category.id %}" >EDIT</a> <a href="#" >DELETE</a></td>
+        </tbody>
+        {% endfor %}
+    </table>
+    <br>
+    <button><a style="color: #fff;text-decoration: none; " href="{% url 'createcategory' %}" >Create Category</a></button>
+    
+    <h2>Subcategories</h2>
+    <table>
+        <thead>
+            <tr>
+          <th>Name</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      
+      {% for subcategory in subcategories  %}
+        
+      
+      <tbody id="subcategoryList">
+          <td>{{subcategory}}</td>
+          <td><a href="{% url 'updatesubcategory' pk=subcategory.id %}" >EDIT</a> <a href="#" >DELETE</a></td>
+          <!-- Subcategory list will be dynamically populated here -->
+        </tbody>
+        {% endfor %}
+    </table>
+    <br>
+    <button><a style="color: #fff;text-decoration: none; " href="{% url 'createsubcategory' %}" >Create Subcategory</a></button>
+    <h2>Products</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      
+      {% for product in products %}
+        
+      
+      <tbody id="productList">
+          <!-- Product list will be dynamically populated here -->
+          <td>{{product}}</td>
+          <td>{{product.price}}</td>
+          <td><a href="{% url 'updateproduct' pk=product.id %}" >EDIT</a> <a href="#" >DELETE</a></td>
+        </tbody>
+        {% endfor %}
+    </table>
+    <br>
+    <button><a style="color: #fff;text-decoration: none; " href="{% url 'createproduct' %}" >Create Product</a></button>
+</div>
+

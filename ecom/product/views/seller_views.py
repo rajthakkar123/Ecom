@@ -1,6 +1,7 @@
+from typing import Any, Dict
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import TemplateView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView,UpdateView
 from product.models import Category,Subcategory,Product
 from product.forms import CategoryForm,SubCategoryForm,ProductForm
 from django.forms import model_to_dict
@@ -13,7 +14,12 @@ from ecom.mixins import SuperUserRequiredMixin
 
 class LoadHome(SuperUserRequiredMixin, TemplateView):
     template_name = 'seller/index.html'
-    
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        context = super(LoadHome,self).get_context_data(**kwargs)
+        context["categories"] = Category.objects.all()
+        context["subcategories"] = Subcategory.objects.all()
+        context["products"] = Product.objects.all()
+        return context
 
 class CreateCategory(SuperUserRequiredMixin ,CreateView):
     model = Category
@@ -61,5 +67,21 @@ def load_ajax_subcategory(request):
         json_subcategory_list.append(dict)
     print("json subcat list ", json_subcategory_list)
     return HttpResponse (json.dumps(json_subcategory_list), content_type = "application/json")
+    
+class UpdateCategory(UpdateView):
+    model =Category
+    template_name = "seller/update-category.html"
+    form_class = CategoryForm
+    success_url = "/admin/"
+    
+class UpdateSubcategory(UpdateView):
+    model =Subcategory
+    template_name = "seller/update-subcategory.html"
+    form_class = SubCategoryForm
+    success_url = "/admin/"
 
-
+class UpdateProduct(UpdateView):
+    model =Product
+    template_name = "seller/update-product.html"
+    form_class = ProductForm
+    success_url = "/admin/"
