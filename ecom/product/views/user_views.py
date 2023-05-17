@@ -1,9 +1,10 @@
 
+from typing import Any, Dict
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.http import JsonResponse
 import random
-from django.views.generic import TemplateView, CreateView,ListView, UpdateView
+from django.views import generic  
 from user.models import CustomUser
 from user.forms import AddressForm, NewUserForm
 from django.urls import reverse_lazy
@@ -23,7 +24,7 @@ import json
 
 
 
-class ViewAddress(LoginRequiredMixin,ListView):
+class ViewAddress(LoginRequiredMixin,generic.ListView):
     template_name = 'user/view-address.html'
     model = Address
     def get_context_data(self, **kwargs):
@@ -34,7 +35,7 @@ class ViewAddress(LoginRequiredMixin,ListView):
         print(context)
         return context
 
-class UpdateAddress(LoginRequiredMixin,UpdateView):
+class UpdateAddress(LoginRequiredMixin,generic.UpdateView):
     template_name = "user/update-address.html"
     model= Address
     success_url= "/view-address/"
@@ -44,7 +45,7 @@ class UpdateAddress(LoginRequiredMixin,UpdateView):
         obj = Address.objects.get(id=id)
         return obj
     
-class AddAddress(LoginRequiredMixin,CreateView):
+class AddAddress(LoginRequiredMixin,generic.CreateView):
     model = Address
     form_class = AddressForm
     template_name = 'user/add-address.html'
@@ -59,7 +60,7 @@ class AddAddress(LoginRequiredMixin,CreateView):
             return redirect('/')
         
         
-class LoadHome(TemplateView): 
+class LoadHome(generic.TemplateView): 
     template_name = 'user/index.html'
     
     def get_context_data(self, **kwargs):
@@ -72,7 +73,7 @@ class LoadHome(TemplateView):
         return context
 
 
-class LoadCategory(TemplateView):
+class LoadCategory(generic.TemplateView):
     template_name = 'user/category.html'
 
     def get_context_data(self, **kwargs):
@@ -83,7 +84,7 @@ class LoadCategory(TemplateView):
 
 
 
-class LoadCart(LoginRequiredMixin,TemplateView):
+class LoadCart(LoginRequiredMixin,generic.TemplateView):
     template_name = 'user/cart.html'
     
 
@@ -108,7 +109,7 @@ class LoadCart(LoginRequiredMixin,TemplateView):
 
         return context
         
-class LoadCheckout(LoginRequiredMixin,TemplateView):
+class LoadCheckout(LoginRequiredMixin,generic.TemplateView):
     template_name = 'user/checkout.html'
 
     def get_context_data (self, **kwargs):
@@ -129,7 +130,7 @@ class LoadCheckout(LoginRequiredMixin,TemplateView):
 
         return context
 
-class LoadConfirmation(LoginRequiredMixin,TemplateView):
+class LoadConfirmation(LoginRequiredMixin,generic.TemplateView):
     template_name = 'user/confirmation.html'
     def get_context_data(self, **kwargs) :
         context = super().get_context_data(**kwargs)
@@ -150,7 +151,7 @@ class LoadLogin(LoginView):
     template_name = 'user/login.html'
 
 
-class LoadElements(TemplateView):
+class LoadElements(generic.TemplateView):
     template_name = 'user/elements.html'
     
 def ajax_load_product(request, id):
@@ -160,7 +161,7 @@ def ajax_load_product(request, id):
     products_list = list(product_vo_list.values())
     return JsonResponse({'products': products_list})
     
-class LoadRegistration(CreateView):
+class LoadRegistration(generic.CreateView):
     model = CustomUser
     form_class= NewUserForm
     template_name = 'user/register.html'
@@ -242,7 +243,7 @@ def OrderCreation(request,**kwargs):
     return JsonResponse(response_data)
 
 
-class UserProfile( SuccessMessageMixin, UpdateView):
+class UserProfile( SuccessMessageMixin, generic.UpdateView):
     model = CustomUser
     fields = ['email', 'first_name', 'last_name']
     template_name = 'user/profile.html'
@@ -251,3 +252,20 @@ class UserProfile( SuccessMessageMixin, UpdateView):
 
     def get_object(self, queryset=None):
         return self.request.user
+
+class ListOrder(generic.list.ListView):
+    model = Order
+    template_name = "user/order_list.html"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+        # print("Context initial: ",context)
+        order_objs = Order.objects.filter(user = user)
+        order_dict= {}
+        for i in order_objs:
+            orderitem = OrderItems.objects.filter(main_order=i)
+            order_dict[i] = orderitem 
+        context['orders'] = order_dict
+        print("looking at order_dict in context : ",context['orders'])
+        # print("order_items",orders)
+        return context

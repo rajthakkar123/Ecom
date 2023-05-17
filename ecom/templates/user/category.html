@@ -34,7 +34,7 @@
 									<li class="nav-item"><a class="nav-link" href="{% url 'user-update' %}">Profile</a></li>
 									<li class="nav-item"><a class="nav-link" href="{% url 'add-address' %}">Insert Address</a></li>
 									<li class="nav-item"><a class="nav-link" href="{% url 'view-address' %}">View Address</a></li>
-									<li class="nav-item"><a class="nav-link" href="#">Previous Orders</a></li>
+									<li class="nav-item"><a class="nav-link" href="{% url 'past-orders' %}">Previous Orders</a></li>
 									<li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
 								</ul>
 								{% else %}
@@ -48,9 +48,6 @@
 								 aria-expanded="false">Shop</a>
 								<ul class="dropdown-menu">
 									<li class="nav-item active "><a class="nav-link " href="{% url 'category' %}">Shop Category</a></li>
-									<li class="nav-item"><a class="nav-link" href="{% url 'checkout' %}">Product Checkout</a></li>
-									<li class="nav-item"><a class="nav-link" href="{% url 'cart' %}">Shopping Cart</a></li>
-									<li class="nav-item"><a class="nav-link" href="{% url 'confirmation' %}">Confirmation</a></li>
 								</ul>
 							</li>
 							
