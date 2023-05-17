@@ -17,7 +17,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
 from django.shortcuts import  redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q
+from django.db.models import Count
 
 import json
 
@@ -71,6 +71,19 @@ class LoadHome(generic.TemplateView):
         context['product_list'] = random_items
         return context
 
+class MostBoughtView(generic.ListView):
+    model= Product
+    template_name = 'user/most-bought.html'
+    def get_context_data(self, **kwargs):
+        context= super().get_context_data(**kwargs)
+        most_bought =  OrderItems.objects.values('product').annotate(occurrences=Count('product')).order_by('-occurrences')[:3]
+        products = []
+        for i in most_bought:
+            print(i["product"])
+            product = Product.objects.get(name=i["product"])
+            products.append(product)
+        context['hyped'] = products
+        return context
 
 class LoadCategory(generic.TemplateView):
     template_name = 'user/category.html'

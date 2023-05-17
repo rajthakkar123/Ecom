@@ -1,4 +1,3 @@
-
 {% extends 'user/base.html' %}
 
 
@@ -7,52 +6,6 @@
 
 
 {% load static %}
-<style>
-    .card {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  max-width: 300px;
-  margin: auto;
-  text-align: center;
-  font-family: arial;
-}
-
-.price {
-  color: grey;
-  font-size: 20px;
-}
-
-.card button {
-  border: none;
-  outline: 0;
-  padding: 12px;
-  color: white;
-  background-color: #000;
-  text-align: center;
-  cursor: pointer;
-  width: 100%;
-  font-size: 18px;
-}
-
-.card button:hover {
-  opacity: 0.7;
-}
-	.button-like {
-  display: inline-block;
-  padding: 8px 16px;
-  background-color: #f2f2f2;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  cursor: pointer;
-  text-align: center;
-  text-decoration: none;
-  color: #333;
-  font-weight: bold;
-}
-
-.button-like:hover {
-  background-color: #e6e6e6;
-}
-</style>
 <body>
 
 	<!-- Start Header Area -->
@@ -119,27 +72,73 @@
 			</div>
 		</div>
 	</header>
+	<!-- End Header Area -->
+
+    <!-- Start Banner Area -->
     <section class="banner-area organic-breadcrumb">
         <div class="container">
             <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
                 <div class="col-first">
-                    <h1>Search Results</h1>
+                    <h1>Popular Products : </h1>
                     <nav class="d-flex align-items-center">
-
+                        <a href="{% url 'home' %}">Home</span></a>
                     </nav>
                 </div>
             </div>
         </div>
     </section>
 
-    <div class="card">
-        <img src="{{object.image.url}}" height="200px" width="150px" alt="Denim Jeans" style="width:100%">
-        <h1>{{object.name}}</h1>
-        <p class="price">Rs. {{object.price}}</p>
-        <!-- <p>Some text about the jeans..</p> -->
-        <p><button><a href="{% url 'add_to_cart' object.id %}" >Add to Cart</a></button></p>
-      </div>
-      
+    <style>
+        table {
+          border-collapse: collapse;
+          width: 100%;
+        }
+        th, td {
+          text-align: left;
+          padding: 8px;
+        }
+        th {
+          background-color: #f2f2f2;
+        }
+      </style>
+    </head>
+    <body>
+      <h1   style="text-align: center;padding-bottom: 30px;" >Most Bought Products</h1>
+      <table>
+        <tr>
+          <th>Product Name</th>
+          <th></th>
+          <th>Add it to Cart</th>
+          <th>View Product in Detail</th>
+          <th>Price</th>
+        </tr>
+        
+        
+        {% for product in hyped %}
+            
+        <tr>
+            <td>{{product.name}}</td>
+            <td><img height="50px" width="50px" src="{{product.image.url}}" alt=""></td>
+            <td><a href="{% url 'add_to_cart' product.id %}" >Add To Cart</a></td>
+            <td><a href="{% url 'single-product' product.id %}" >View Product</a></td>
+            <td>{{product.price}}</td>
+        </tr>
+        {% endfor %}
+       
+      </table>
+	<!-- end features Area -->
 
+	<!-- Start category Area -->
+	<!-- End category Area -->
 
-{% endblock content %}
+	<!-- start product Area -->
+
+	<!-- End exclusive deal Area -->
+
+	<!-- Start brand Area -->
+	<!-- End brand Area -->
+
+    
+	<!-- End related-product Area -->
+
+	{% endblock content %}
