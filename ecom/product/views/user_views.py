@@ -16,6 +16,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
 from django.shortcuts import  redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 
 import json
 
@@ -269,3 +270,11 @@ class ListOrder(generic.list.ListView):
         print("looking at order_dict in context : ",context['orders'])
         # print("order_items",orders)
         return context
+    
+class SearchResultsView(generic.ListView):
+    model = Product
+    template_name = "user/search_results.html"
+    
+    def get_queryset(self): # new
+        query = self.request.GET.get("search_input")
+        return Product.objects.filter(name__icontains=query)

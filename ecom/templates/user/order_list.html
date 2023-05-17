@@ -92,8 +92,8 @@
 		</div>
 		<div class="search_input" id="search_input_box">
 			<div class="container">
-				<form class="d-flex justify-content-between">
-					<input type="text" class="form-control" id="search_input" placeholder="Search Here">
+				<form action="{% url 'search_results' %}" class="d-flex justify-content-between">
+					<input type="text" class="form-control" id="search_input" name="search_input" placeholder="Search Here">
 					<button type="submit" class="btn"></button>
 					<span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
 				</form>
@@ -101,42 +101,23 @@
 		</div>
 	</header>
 	<!-- End Header Area -->
+	<section class="banner-area organic-breadcrumb">
+        <div class="container">
+            <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+                <div class="col-first">
+                    <h1>User Registration</h1>
+                    <nav class="d-flex align-items-center">
+                        <a href="{% url 'home' %}">Home<span class="lnr lnr-arrow-right"></span></a>
+                        <a href="{% url 'past-orders' %}">Past Orders </a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
 
 	<!-- start banner Area -->
-	<section class="banner-area">
-		<div class="container">
-			<div class="row fullscreen align-items-center justify-content-start">
-				<div class="col-lg-12">
-					<div class="active-banner-slider owl-carousel">
-						<!-- single-slide -->
-						{% for i in product_list %}
-						<div class="row single-slide align-items-center d-flex">
-							<div class="col-lg-5 col-md-6">
-								<div class="banner-content">
-									<h1>{{ i.name }} <br></h1>
-									<p>Latest Arrivals.The all new collections from our seller.We know you're goona love it. </p>
-									<div class="add-bag d-flex align-items-center">
-										<a class="add-btn" href="/add-to-cart/{{i.id}}"><span class="lnr lnr-cross"></span></a>
-										<a  href="/add-to-cart/{{i.id}}"><span class="add-text text-uppercase">Add to Bag</span></a>
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-7">
-								<div class="banner-img">
-									<img  width="10" height="150" src="{{i.image.url}}" alt="">
-								</div>
-							</div>
-						</div>
-						{% endfor %} 
 
-						<!-- single-slide -->
-						
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	
+
     <table style="  border: 1px solid black;" class="bordered-table">
         <thead style="  border: 1px solid black;">
             <tr style="  border: 1px solid black;">

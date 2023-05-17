@@ -1,5 +1,5 @@
 from django.urls import path
-from product.views.user_views import ListOrder,OrderCreation,UserProfile,ViewAddress,UpdateAddress, add_in_cart,remove_from_cart,add_to_cart,ajax_load_product ,LoadRegistration,LoadHome,LoadCategory,LoadCart,LoadCheckout,LoadConfirmation,LoadLogin,AddAddress
+from product.views.user_views import SearchResultsView,ListOrder,OrderCreation,UserProfile,ViewAddress,UpdateAddress, add_in_cart,remove_from_cart,add_to_cart,ajax_load_product ,LoadRegistration,LoadHome,LoadCategory,LoadCart,LoadCheckout,LoadConfirmation,LoadLogin,AddAddress
 from django.contrib.auth.views import LogoutView,LoginView
 
 
@@ -21,5 +21,7 @@ urlpatterns = [
     path("add-in-cart/<int:product_id>/", add_in_cart, name="add_in_cart"),
     path("confirm-order/",OrderCreation,name="confirm-order"),
     path('profile/update/', UserProfile.as_view(), name='user-update'),
-    path('past-orders',ListOrder.as_view(),name="past-orders")
+    path('past-orders',ListOrder.as_view(),name="past-orders"),
+    path('search_results/',SearchResultsView.as_view(),name="search_results"),
+    
 ]
