@@ -34,7 +34,6 @@ class ViewAddress(LoginRequiredMixin,generic.ListView):
         user = self.request.user
         address = Address.objects.filter(user = user)
         context["address"] =address
-        print(context)
         return context
 
 class UpdateAddress(LoginRequiredMixin,generic.UpdateView):
@@ -68,10 +67,8 @@ class LoadHome(generic.TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         items = list(Product.objects.all())
-        # change 3 to how many random items you want
         random_items = random.sample(items, 3)
         context['product_list'] = random_items
-        print("Context: ",context)
         return context
 
 
@@ -99,7 +96,6 @@ class LoadCart(LoginRequiredMixin,generic.TemplateView):
         cart_items = cart_items.order_by('id')
         for item in cart_items:
             item.image = item.item_name.image.url
-            print(item.image)
         total = 0.00
         for i in cart_items:
             i.amount = i.price * i.quantity
@@ -107,7 +103,6 @@ class LoadCart(LoginRequiredMixin,generic.TemplateView):
             total = total + i.amount
         context["cart"] = cart_items
         context["total"] = total
-        print(context)
 
         return context
         
@@ -261,29 +256,25 @@ class ListOrder(generic.list.ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.request.user
-        # print("Context initial: ",context)
         order_objs = Order.objects.filter(user = user)
         order_dict= {}
         for i in order_objs:
             orderitem = OrderItems.objects.filter(main_order=i)
             order_dict[i] = orderitem 
         context['orders'] = order_dict
-        print("looking at order_dict in context : ",context['orders'])
-        # print("order_items",orders)
         return context
     
 class SearchResultsView(generic.ListView):
     model = Product
     template_name = "user/search_results.html"
     
-    def get_queryset(self): # new
+    def get_queryset(self): 
         query = self.request.GET.get("search_input")
         if query == "all":
             queryset = Product.objects.all()
         else:
             queryset = Product.objects.filter(name__icontains=query)
         
-        print(queryset)
         return queryset
     
 class SingleProductView(generic.DetailView):
