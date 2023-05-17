@@ -8,6 +8,34 @@
 
 {% load static %}
 <style>
+    .card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+}
+
+.price {
+  color: grey;
+  font-size: 20px;
+}
+
+.card button {
+  border: none;
+  outline: 0;
+  padding: 12px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+}
+
+.card button:hover {
+  opacity: 0.7;
+}
 	.button-like {
   display: inline-block;
   padding: 8px 16px;
@@ -103,15 +131,15 @@
             </div>
         </div>
     </section>
-    <!-- <h1 style="padding-left:50px ;" >Search Results</h1> -->
 
-<ul style="padding-left:50px ;">
-  {% for object in object_list %}
-    <li>
-		<img  width="300" height="200" src="{{object.image.url}}" alt="">
-		<a href="{% url 'single-product' object.id %}">{{ object.name }} <span class="button-like"> Rs. {{ object.price }}   </span></a>
-    </li>
-  {% endfor %}
-</ul>
+    <div class="card">
+        <img src="{{object.image.url}}" alt="Denim Jeans" style="width:100%">
+        <h1>{{object.name}}</h1>
+        <p class="price">Rs. {{object.price}}</p>
+        <!-- <p>Some text about the jeans..</p> -->
+        <p><button><a href="{% url 'add_to_cart' object.id %}" >Add to Cart</a></button></p>
+      </div>
+      
 
-{% endblock %}
+
+{% endblock content %}

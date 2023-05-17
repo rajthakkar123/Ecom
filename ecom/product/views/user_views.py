@@ -1,6 +1,7 @@
 
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 from django.contrib.messages.views import SuccessMessageMixin
+from django.db import models
 from django.urls import reverse_lazy
 from django.http import JsonResponse
 import random
@@ -277,4 +278,14 @@ class SearchResultsView(generic.ListView):
     
     def get_queryset(self): # new
         query = self.request.GET.get("search_input")
-        return Product.objects.filter(name__icontains=query)
+        if query == "all":
+            queryset = Product.objects.all()
+        else:
+            queryset = Product.objects.filter(name__icontains=query)
+        
+        print(queryset)
+        return queryset
+    
+class SingleProductView(generic.DetailView):
+    model = Product
+    template_name = "user/single-product.html"

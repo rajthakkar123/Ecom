@@ -90,7 +90,10 @@
 									<div class="add-bag d-flex align-items-center">
 										<a class="add-btn" href="/add-to-cart/{{i.id}}"><span class="lnr lnr-cross"></span></a>
 										<a  href="/add-to-cart/{{i.id}}"><span class="add-text text-uppercase">Add to Bag</span></a>
-									</div>
+										<a  href="{% url 'single-product' i.id %}"><span class="add-text text-uppercase">View in Detail</span></a>
+									
+									
+										"</div>
 								</div>
 							</div>
 							<div class="col-lg-7">
@@ -236,11 +239,11 @@
 				<div class="col-lg-6 no-padding exclusive-left">
 					<div class="row clock_sec clockdiv" id="clockdiv">
 						<div class="col-lg-12">
-							<h1>Exclusive Hot Deal Ends Soon!</h1>
-							<p>Who are in extremely love with eco friendly system.</p>
+							<h1> Buy the products which are hot in market </h1>
+							<p>Buy the products that are most ordered currently.</p>
 						</div>
 						<div class="col-lg-12">
-							<div class="row clock-wrap">
+							<!-- <div class="row clock-wrap">
 								<div class="col clockinner1 clockinner">
 									<h1 class="days">150</h1>
 									<span class="smalltext">Days</span>
@@ -257,7 +260,9 @@
 									<h1 class="seconds">59</h1>
 									<span class="smalltext">Secs</span>
 								</div>
-							</div>
+							</div> -->
+
+							<!-- unnecessary timer commented above -->
 						</div>
 					</div>
 					<a href="" class="primary-btn">Shop Now</a>
