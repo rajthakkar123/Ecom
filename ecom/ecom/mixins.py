@@ -10,5 +10,4 @@ class SuperUserRequiredMixin(LoginRequiredMixin, UserPassesTestMixin):
         if not  self.request.user.is_authenticated :
             return HttpResponseRedirect("login")
         if self.request.user.is_superuser:
-            # print("Super user : True")
             return True

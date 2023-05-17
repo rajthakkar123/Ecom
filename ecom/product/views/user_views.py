@@ -92,8 +92,7 @@ class LoadCart(LoginRequiredMixin,generic.TemplateView):
         request = self.request
         user = request.user
         user_cart  = Cart.objects.get(user_id = user.id)
-        cart_items = CartItems.objects.filter(cart_id = user_cart.id).select_related('item_name')
-        cart_items = cart_items.order_by('id')
+        cart_items = CartItems.objects.filter(cart_id = user_cart.id).select_related('item_name').order_by("id")
         for item in cart_items:
             item.image = item.item_name.image.url
         total = 0.00

@@ -52,11 +52,8 @@ class CreateProduct(SuperUserRequiredMixin, CreateView):
         
 
 def load_ajax_subcategory(request):
-    # print("in ajax")    
     category_id = request.GET.get('categoryID')
-    # print("ID>>>>>",category_id)
     category = Category.objects.get(id = category_id)
-    # print("category = ",category.id)
     
     subcategory_vo_list = Subcategory.objects.filter(category_id = category.id)
     
@@ -65,7 +62,6 @@ def load_ajax_subcategory(request):
     for i in subcategory_vo_list:
         dict = model_to_dict(i)
         json_subcategory_list.append(dict)
-    print("json subcat list ", json_subcategory_list)
     return HttpResponse (json.dumps(json_subcategory_list), content_type = "application/json")
     
 class UpdateCategory(UpdateView):
