@@ -1,16 +1,98 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Address</title>
-</head>
+{% extends 'user/base.html' %}
+
+
+
+{% block content %}
+
+
+{% load static %}
 <body>
-    <form method="post">
+
+	<!-- Start Header Area -->
+	<header class="header_area sticky-header">
+		<div class="main_menu">
+			<nav class="navbar navbar-expand-lg navbar-light main_box">
+				<div class="container">
+					<!-- Brand and toggle get grouped for better mobile display -->
+					<a class="navbar-brand logo_h" href="{% url 'home' %}"><img src="{% static 'user/img/logo.png' %} " alt=""></a>
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+					 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<!-- Collect the nav links, forms, and other content for toggling -->
+					<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+						<ul class="nav navbar-nav menu_nav ml-auto">
+							<li class="nav-item submenu dropdown">
+								
+								{% if user.is_authenticated %}
+								
+								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+								 aria-expanded="false">{{user.first_name}}</a>
+								<ul class="dropdown-menu">
+									<li class="nav-item"><a class="nav-link" href="{% url 'user-update' %}">Profile</a></li>
+									<li class="nav-item"><a class="nav-link" href="{% url 'add-address' %}">Insert Address</a></li>
+									<li class="nav-item"><a class="nav-link" href="{% url 'view-address' %}">View Address</a></li>
+									<li class="nav-item"><a class="nav-link" href="#">Previous Orders</a></li>
+									<li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
+								</ul>
+								{% else %}
+								<li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+
+								{% endif %}
+									
+							</li>
+								<li class="nav-item submenu dropdown">
+								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+								 aria-expanded="false">Shop</a>
+								<ul class="dropdown-menu">
+									<li class="nav-item"><a class="nav-link" href="{% url 'category' %}">Shop Category</a></li>
+								</ul>
+							</li>
+							
+						</ul>
+						<ul class="nav navbar-nav navbar-right">
+							<li class="nav-item"><a href="{% url 'cart' %}" class="cart"><span class="ti-bag"></span></a></li>
+							<li class="nav-item">
+								<button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+		</div>
+		<div class="search_input" id="search_input_box">
+			<div class="container">
+				<form class="d-flex justify-content-between">
+					<input type="text" class="form-control" id="search_input" placeholder="Search Here">
+					<button type="submit" class="btn"></button>
+					<span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
+				</form>
+			</div>
+		</div>
+	</header>
+	<!-- End Header Area -->
+
+    <!-- Start Banner Area -->
+    <section class="banner-area organic-breadcrumb">
+        <div class="container">
+            <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+                <div class="col-first">
+                    <h1>Address </h1>
+                    <nav class="d-flex align-items-center">
+                        <a href="{% url 'home' %}">Home<span class="lnr lnr-arrow-right"></span></a>
+                        <a href="{% url 'add-address' %}">Add Address</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <form style="padding-left: 50px;" method="post">
         {% csrf_token %}
         {{form.as_p}}
         <input type="submit" value="Save">
     </form>
 </body>
-</html>
+   {% endblock %}
