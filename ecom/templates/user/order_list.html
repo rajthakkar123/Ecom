@@ -131,7 +131,7 @@
         <tbody style="  border: 1px solid black;">
             {% for order, order_items in orders.items %}
                 <!-- <tr> -->
-                    <td class="ord" style="  border: 1px solid black;font-weight:bolder;">{{ order.id }}</td>
+                    <td class="ord" style="  border: 1px solid black;font-weight:bolder;">{{ order }}</td>
                     {% for item in order_items %}
                         <tr style="  border: 1px solid black;">
                             <td style="  border: 1px solid black;">{{ item.product }}</td>

@@ -24,8 +24,7 @@ class Product(models.Model):
     category = models.ForeignKey(Category,on_delete = models.CASCADE)
     subcategory = models.ForeignKey(Subcategory,on_delete=models.CASCADE)
     image = models.ImageField(upload_to="images/")
-    price = models.IntegerField(default=500)
-    discount = models.IntegerField(default=0)
+    price = models.IntegerField()
     def __str__(self):
         return self.name
     
@@ -52,6 +51,8 @@ class Order(models.Model):
     total = models.DecimalField(max_digits=8,decimal_places=2,default=0.00)
     Address = models.ForeignKey(Address,on_delete=models.CASCADE)
 
+    def __str__(self) :
+        return str(self.id)
 
 class OrderItems(models.Model):
     product = models.CharField(max_length=50)
