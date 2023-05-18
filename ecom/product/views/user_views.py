@@ -136,6 +136,8 @@ class LoadCheckout(LoginRequiredMixin,generic.TemplateView):
             total = total + i.amount
         context["cart"] = cart_items
         context["total"] = total
+        context['addresses'] = Address.objects.filter(user=user)
+        print(context['addresses'])
 
         return context
 
@@ -234,12 +236,16 @@ def OrderCreation(request,**kwargs):
 
     cart_data = json.loads(request.body.decode('utf-8'))
     
-    order = Order.objects.create(user = user)
-    for item in cart_data:
+    print("CART DATA",cart_data)
+    
+    order_obj = Address.objects.get(id = cart_data[0]['address'] )
+    
+    order = Order.objects.create(user = user,Address = order_obj)
+    for item in cart_data[1::]:
         item_name = item['item_name']
         quantity = item['quantity']
         amount = item['amount']
-        
+        # print(item_name)
         price = float(amount) / int(quantity)
         order.total += float(amount)
         OrderItems.objects.create(product = item_name,quantity = quantity,price = price,main_order=order)
@@ -274,6 +280,7 @@ class ListOrder(generic.list.ListView):
             orderitem = OrderItems.objects.filter(main_order=i)
             order_dict[i] = orderitem 
         context['orders'] = order_dict
+        print("Dict",order_dict)
         return context
     
 class SearchResultsView(generic.ListView):

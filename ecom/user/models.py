@@ -30,4 +30,4 @@ class Address(models.Model):
     
     
     def __str__ (self):
-        return self. Flat_number_society + " " + self.area
+        return self.Flat_number_society 

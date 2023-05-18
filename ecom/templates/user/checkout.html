@@ -102,10 +102,18 @@
                 <div class="row">
                     <div class="col-lg-8">
                         <h3>Billing Details</h3>
-
+                        <h6>Select Address</h6><br>
+                                    <select style="padding-left: 25px ;" id="dropdown" name="color">
+                                        
+                                        {% for address in addresses %}
+                                        
+                                        <option value="{{address.id}}">{{address}}</option>
+                                        
+                                        {% endfor %}
+                                    </select>
                     </div>
                     <div class="col-lg-4">
-                        <div class="order_box" style="width: 500px;" >
+                        <div class="order_box" style="width: 554px;" >
                             <h2>Your Order</h2>
                             <ul class="list">
                                 <li>
@@ -118,6 +126,7 @@
                                     <span id = " item-name"class="item-name">{{ item.item_name }}</span>
                                     <span class=" item-quantity">{{ item.quantity }}</span>
                                     <span class="item-total">{{ item.amount }}</span>
+                                    
                                 </li>
                                 {% endfor %}
                             </ul><br>

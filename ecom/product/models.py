@@ -1,7 +1,7 @@
 from django.db import models
 from user.models import CustomUser
 from django.utils import timezone
-
+from user.models import Address
 
 # Create your models here.
 
@@ -50,6 +50,7 @@ class CartItems(models.Model):
 class Order(models.Model):
     user = models.ForeignKey(CustomUser,on_delete=models.CASCADE)
     total = models.DecimalField(max_digits=8,decimal_places=2,default=0.00)
+    Address = models.ForeignKey(Address,on_delete=models.CASCADE)
 
 
 class OrderItems(models.Model):

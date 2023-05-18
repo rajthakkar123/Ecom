@@ -196,9 +196,15 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	  const quantities = document.querySelectorAll('.item-quantity');
 	  const totals = document.querySelectorAll('.item-total');
 	  const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
+	//   const address = document.querySelectorAll('.current');
 	  const cartData = [];
-  
+	  //   console.log(address.values)
+	  const dropdown = document.getElementById('dropdown');
+	  const selectedId = dropdown.value;
+	  console.log(selectedId);
+	  const addr={address: selectedId};
+
+	  cartData.push(addr);
 	  for (let i = 0; i < items.length; i++) {
 		const itemQuantity = quantities[i].textContent;
 		const itemTotal = totals[i].textContent;
@@ -209,21 +215,22 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		  quantity: itemQuantity,
 		  amount: itemTotal
 		};
-  
+		
 		cartData.push(item);
+
 		// console.log(item)
 	}
 	if (cartData.length === 0) {
- 		console.log("The list is empty.");
+ 		// console.log("The list is empty.");
 		window.location.href = "/"
 	}
 	else {
 	cart = JSON.stringify(cartData)
-	console.log("CART"+cart)
+	// console.log("CART"+cart)
 	a="'" +cart+"'"
-	console.log("bbb"+a)
+	// console.log("bbb"+a)
 	js  = JSON.parse(cart)
-	console.log(js)
+	// console.log(js)
 	$.ajax({
 		url: '/confirm-order/',
 		type: 'POST',
@@ -233,9 +240,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		},
 		data:JSON.stringify(js),
 		success: function(response) {
-        console.log("SUCCESSFUL SENDING");
-
-        // Redirect to another page
+        // console.log("SUCCESSFUL SENDING");
         window.location.href = '/confirmation/';
       },
       error: function(error) {
