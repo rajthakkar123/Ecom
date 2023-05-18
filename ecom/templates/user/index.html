@@ -88,8 +88,8 @@
 									<h1>{{ i.name }} <br></h1>
 									<p>Latest Arrivals.The all new collections from our seller.We know you're gonna love it. </p>
 									<div class="add-bag d-flex align-items-center">
-										<a class="add-btn" href="/add-to-cart/{{i.id}}"><span class="lnr lnr-cross"></span></a>
-										<a  href="/add-to-cart/{{i.id}}"><span class="add-text text-uppercase">Add to Bag</span></a>
+										<a class="add-btn" href="{% url 'add_to_cart' i.id %}"><span class="lnr lnr-cross"></span></a>
+										<a  href="{% url 'add_to_cart' i.id %}"><span class="add-text text-uppercase">Add to Bag</span></a>
 										<a  href="{% url 'single-product' i.id %}"><span class="add-text text-uppercase">View in Detail</span></a>
 									
 									
