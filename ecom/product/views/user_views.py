@@ -183,13 +183,13 @@ class LoadRegistration(generic.CreateView):
     def get_success_url(self):
         return reverse('login')
     
-    def form_valid(self, form):
-        response = super().form_valid(form)
+    # def form_valid(self, form):
+    #     response = super().form_valid(form)
         
-        cart = Cart(user=self.object)
-        cart.save()
-        
-        return response
+    #     cart = Cart(user=self.object)
+    #     cart.save()
+         
+    #     return response
 
 @login_required
 def add_to_cart(request, product_id):
