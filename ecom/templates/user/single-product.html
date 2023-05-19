@@ -131,7 +131,7 @@
             </div>
         </div>
     </section>
-
+<div style="padding-top: 20px;" >
     <div class="card">
         <img src="{{object.image.url}}" height="200px" width="150px" alt="Denim Jeans" style="width:100%">
         <h1>{{object.name}}</h1>
@@ -139,7 +139,7 @@
         <!-- <p>Some text about the jeans..</p> -->
         <p><button><a href="{% url 'add_to_cart' object.id %}" >Add to Cart</a></button></p>
       </div>
-      
+	</div>
 
 
 {% endblock content %}

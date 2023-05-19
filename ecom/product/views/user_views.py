@@ -13,6 +13,8 @@ from django.contrib.auth.views import LoginView
 from product.models import Product,Subcategory,Order,OrderItems,Category,Cart,CartItems,Order, OrderItems 
 from user.models import Address 
 from django.shortcuts import redirect,render
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_control
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
 from django.shortcuts import  redirect, get_object_or_404
@@ -95,7 +97,7 @@ class LoadCategory(generic.TemplateView):
         return context
 
 
-
+@method_decorator(cache_control(no_cache=True, no_store=True), name='dispatch')
 class LoadCart(LoginRequiredMixin,generic.TemplateView):
     template_name = 'user/cart.html'
     
@@ -117,7 +119,8 @@ class LoadCart(LoginRequiredMixin,generic.TemplateView):
         context["total"] = total
 
         return context
-        
+
+@method_decorator(cache_control(no_cache=True, no_store=True), name='dispatch')
 class LoadCheckout(LoginRequiredMixin,generic.TemplateView):
     template_name = 'user/checkout.html'
 
