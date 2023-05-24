@@ -160,7 +160,7 @@ class LoadConfirmation(LoginRequiredMixin,generic.TemplateView):
         context["order_items"] = latest_order_items
 
         return context
-
+    
 class LoadLogin(LoginView):
     template_name = 'user/login.html'
 
