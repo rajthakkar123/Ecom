@@ -1,5 +1,3 @@
-
-from typing import Any, Dict, Optional
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db import models
 from django.urls import reverse_lazy
